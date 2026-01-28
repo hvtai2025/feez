@@ -4,6 +4,12 @@
 
 echo "🇫🇮 Starting Finnish Practice Worksheet Generator..."
 
+# Check if LibreTranslate Docker image exists
+if ! docker images | grep -q libretranslate/libretranslate; then
+    echo "LibreTranslate Docker image not found. Downloading..."
+    docker pull libretranslate/libretranslate
+fi
+
 # Start LibreTranslate Docker container if not running
 if ! docker ps | grep -q libretranslate; then
     echo "Starting LibreTranslate Docker container..."
