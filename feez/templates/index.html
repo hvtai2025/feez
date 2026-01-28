@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finnish Practice Worksheet Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🇫🇮 Finnish Practice Worksheet Generator</h1>
+            <p class="subtitle">Learn Finnish with custom practice sheets - Flask Backend</p>
+        </header>
+
+        <div class="controls">
+            <div class="input-group">
+                <label for="finnishText">Finnish Text (one phrase per line):</label>
+                <textarea id="finnishText" placeholder="Enter Finnish phrases, one per line..." rows="8">Hei, mitä kuuluu?
+Hyvää huomenta
+Kiitos paljon
+Ole hyvä
+Nähdään myöhemmin</textarea>
+            </div>
+
+            <div class="input-group">
+                <label for="englishText">English Translation (auto-generated):</label>
+                <textarea id="englishText" placeholder="Translations will appear here..." rows="8" readonly></textarea>
+                <div class="translate-controls">
+                    <select id="translatorSelect" class="translator-select">
+                        <option value="auto">Auto (Try All)</option>
+                        <option value="mymemory">MyMemory (Free)</option>
+                        <option value="libretranslate">LibreTranslate</option>
+                        <option value="google">Google Translate</option>
+                        <option value="lingva">Lingva Translate</option>
+                    </select>
+                    <button id="translateBtn" class="btn-translate" type="button">🔄 Translate All Lines</button>
+                    <button id="cancelBtn" class="btn-cancel" type="button" style="display: none;">✖ Cancel</button>
+                </div>
+                <div id="translationStatus" class="translation-status"></div>
+                <div id="translationProgress" class="translation-progress"></div>
+            </div>
+
+            <div class="options-row">
+                <div class="input-group">
+                    <label for="fontSize">Font Size:</label>
+                    <select id="fontSize">
+                        <option value="16">Small (16px)</option>
+                        <option value="20">Medium (20px)</option>
+                        <option value="24" selected>Large (24px)</option>
+                        <option value="28">Extra Large (28px)</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="lineColor">Line Color:</label>
+                    <input type="color" id="lineColor" value="#cccccc">
+                </div>
+
+                <div class="input-group">
+                    <label for="textColor">Text Color:</label>
+                    <input type="color" id="textColor" value="#333333">
+                </div>
+
+                <div class="input-group">
+                    <label for="practiceLines">Practice Lines:</label>
+                    <select id="practiceLines">
+                        <option value="3">3 lines</option>
+                        <option value="4">4 lines</option>
+                        <option value="5" selected>5 lines</option>
+                        <option value="6">6 lines</option>
+                        <option value="7">7 lines</option>
+                        <option value="8">8 lines</option>
+                        <option value="10">10 lines</option>
+                    </select>
+                </div>
+            </div>
+
+            <button id="generateBtn" class="btn-primary">Generate Worksheet</button>
+            <button id="printBtn" class="btn-secondary">Print Worksheet</button>
+            <button id="addMoreBtn" class="btn-secondary">Add More Phrases</button>
+        </div>
+
+        <div id="worksheet" class="worksheet">
+            <!-- Generated worksheet will appear here -->
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
