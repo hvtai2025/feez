@@ -1,0 +1,24 @@
+*.pyc
+__pycache__/
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.env
+.venv
+venv/
+env/
+config.py
+.DS_Store
+.vscode/
+.idea/
+*.log
+instance/
+
+# Test coverage
+.coverage
+htmlcov/
+.pytest_cache/
+*.cover
+.hypothesis/

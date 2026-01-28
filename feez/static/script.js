@@ -349,6 +349,9 @@ function createPracticeBlock(finnishText, englishText, fontSize, lineColor, text
     // Finnish line (now first)
     const finnishLine = document.createElement('div');
     finnishLine.className = 'practice-line finnish-line';
+    finnishLine.setAttribute('data-label', 'Finnish');
+    finnishLine.setAttribute('data-short-label', 'fi');
+    finnishLine.setAttribute('data-text', finnishText);
     finnishLine.textContent = `Finnish: ${finnishText}`;
     finnishLine.style.fontSize = `${fontSize}px`;
     finnishLine.style.color = textColor;
@@ -357,6 +360,9 @@ function createPracticeBlock(finnishText, englishText, fontSize, lineColor, text
     // English line (now second)
     const englishLine = document.createElement('div');
     englishLine.className = 'practice-line english-line';
+    englishLine.setAttribute('data-label', 'English');
+    englishLine.setAttribute('data-short-label', 'en');
+    englishLine.setAttribute('data-text', englishText);
     englishLine.textContent = `English: ${englishText}`;
     englishLine.style.fontSize = `${fontSize}px`;
     englishLine.style.color = '#6c757d';

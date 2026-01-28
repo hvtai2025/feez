@@ -51,8 +51,12 @@ pip install python-dotenv
 - **Status**: Works without API key
 - **Free Tier**: Unlimited (public instance)
 - **Self-hosted**: You can host your own
+- **Docker Setup** (Finnish & English only for faster startup): 
+  ```bash
+  docker run -d --name libretranslate -p 5001:5000 libretranslate/libretranslate --load-only en,fi
+  ```
 - **Get Key**: https://libretranslate.com
-- **Config**: `LIBRETRANSLATE_API_KEY`
+- **Config**: `LIBRETRANSLATE_API_KEY`, `LIBRETRANSLATE_URL`
 
 ### 3. Google Translate (Currently Active - Unofficial)
 - **Status**: Works without API key (unofficial API)

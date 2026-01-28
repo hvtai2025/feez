@@ -404,6 +404,22 @@ header h1 {
     .english-line {
         page-break-inside: avoid;
         break-inside: avoid;
+        font-size: 0 !important;
+        color: transparent !important;
+    }
+
+    /* Use short labels in print */
+    .finnish-line::before {
+        content: attr(data-short-label) ": " attr(data-text);
+        font-size: 11px !important;
+        color: #333 !important;
+        font-weight: normal !important;
+    }
+    
+    .english-line::before {
+        content: attr(data-short-label) ": " attr(data-text);
+        font-size: 11px !important;
+        color: #666 !important;
     }
 
     hr {

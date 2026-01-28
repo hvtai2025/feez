@@ -4,6 +4,19 @@
 
 echo "🇫🇮 Starting Finnish Practice Worksheet Generator..."
 
+# Start LibreTranslate Docker container if not running
+if ! docker ps | grep -q libretranslate; then
+    echo "Starting LibreTranslate Docker container..."
+    if docker ps -a | grep -q libretranslate; then
+        docker start libretranslate
+    else
+        docker run -d --name libretranslate -p 5001:5000 libretranslate/libretranslate --load-only en,fi
+    fi
+    echo "LibreTranslate started on http://localhost:5001"
+else
+    echo "LibreTranslate is already running"
+fi
+
 # Check if virtual environment exists
 if [ ! -d "venv" ]; then
     echo "Creating virtual environment..."
