@@ -9,7 +9,6 @@ build/
 .venv
 venv/
 env/
-config.py
 .DS_Store
 .vscode/
 .idea/
