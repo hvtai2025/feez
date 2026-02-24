@@ -7,14 +7,14 @@ let isTranslating = false;
 
 document.addEventListener('DOMContentLoaded', () => {
     // Add event listeners
-
+    document.getElementById('generateBtn').addEventListener('click', generateWorksheet);
     document.getElementById('printBtn').addEventListener('click', printWorksheet);
     document.getElementById('addMoreBtn').addEventListener('click', addPhrase);
     document.getElementById('translateBtn').addEventListener('click', translateToEnglish);
     document.getElementById('cancelBtn').addEventListener('click', cancelTranslation);
 
     // Generate initial worksheet
-
+    generateWorksheet();
 });
 
 function cancelTranslation() {
@@ -105,7 +105,25 @@ function generateWorksheet() {
 // Flask API base URL (adjust if needed)
 const API_BASE_URL = window.location.origin;
 
-
+// Translation service configurations
+const translationServices = {
+    mymemory: {
+        name: 'MyMemory',
+        dailyLimit: 1000
+    },
+    libretranslate: {
+        name: 'LibreTranslate',
+        dailyLimit: 'unlimited'
+    },
+    google: {
+        name: 'Google Translate',
+        dailyLimit: 'unofficial'
+    },
+    lingva: {
+        name: 'Lingva Translate',
+        dailyLimit: 'unlimited'
+    }
+};
 
 function showStatus(message, type = 'info') {
     const statusDiv = document.getElementById('translationStatus');
@@ -119,8 +137,8 @@ function showStatus(message, type = 'info') {
     }
 }
 
-// Call Flask API to translate text (LibreTranslate only)
-async function translateViaAPI(text) {
+// Call Flask API to translate text
+async function translateViaAPI(text, service = 'auto') {
     try {
         const response = await fetch(`${API_BASE_URL}/api/translate`, {
             method: 'POST',
@@ -128,10 +146,13 @@ async function translateViaAPI(text) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                text: text
+                text: text,
+                service: service
             })
         });
+        
         const data = await response.json();
+        
         if (data.success) {
             return {
                 success: true,
@@ -150,8 +171,8 @@ async function translateViaAPI(text) {
     }
 }
 
-// Call Flask API to translate multiple lines (LibreTranslate only)
-async function translateBatchViaAPI(lines) {
+// Call Flask API to translate multiple lines
+async function translateBatchViaAPI(lines, service = 'auto') {
     try {
         const response = await fetch(`${API_BASE_URL}/api/translate-batch`, {
             method: 'POST',
@@ -159,10 +180,13 @@ async function translateBatchViaAPI(lines) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                lines: lines
+                lines: lines,
+                service: service
             })
         });
+        
         const data = await response.json();
+        
         if (data.success) {
             return data.results;
         } else {
@@ -180,7 +204,7 @@ async function translateToEnglish() {
     const translateBtn = document.getElementById('translateBtn');
     const cancelBtn = document.getElementById('cancelBtn');
     const englishInput = document.getElementById('englishText');
-
+    const selectedService = document.getElementById('translatorSelect').value;
 
     if (!finnishText) {
         showStatus('⚠️ Please enter Finnish text first!', 'warning');
@@ -241,7 +265,7 @@ async function translateToEnglish() {
 
             try {
                 // Call Flask API for translation
-                const result = await translateViaAPI(line);
+                const result = await translateViaAPI(line, selectedService);
 
                 if (result.success) {
                     translations.push(result.translation);
@@ -267,12 +291,9 @@ async function translateToEnglish() {
             }
         }
 
-
-        // Auto-generate worksheet after translation
-        generateWorksheet();
-
         // Final status
         progressDiv.classList.remove('active');
+        
         if (translationCancelled) {
             // Status already shown
         } else if (failCount === 0) {

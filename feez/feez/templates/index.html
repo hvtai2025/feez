@@ -27,6 +27,13 @@ Nähdään myöhemmin</textarea>
                 <label for="englishText">English Translation (auto-generated):</label>
                 <textarea id="englishText" placeholder="Translations will appear here..." rows="8" readonly></textarea>
                 <div class="translate-controls">
+                    <select id="translatorSelect" class="translator-select">
+                        <option value="auto">Auto (Try All)</option>
+                        <option value="mymemory">MyMemory (Free)</option>
+                        <option value="libretranslate">LibreTranslate</option>
+                        <option value="google">Google Translate</option>
+                        <option value="lingva">Lingva Translate</option>
+                    </select>
                     <button id="translateBtn" class="btn-translate" type="button">🔄 Translate All Lines</button>
                     <button id="cancelBtn" class="btn-cancel" type="button" style="display: none;">✖ Cancel</button>
                 </div>
@@ -67,8 +74,9 @@ Nähdään myöhemmin</textarea>
                 </div>
             </div>
 
+            <button id="generateBtn" class="btn-primary">Generate Worksheet</button>
             <button id="printBtn" class="btn-secondary">Print Worksheet</button>
-            <button id="addMoreBtn" class="btn-secondary">Reset</button>
+            <button id="addMoreBtn" class="btn-secondary">Add More Phrases</button>
         </div>
 
         <div id="worksheet" class="worksheet">

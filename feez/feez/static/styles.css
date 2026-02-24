@@ -413,7 +413,7 @@ header h1 {
         content: attr(data-short-label) ": " attr(data-text);
         font-size: 11px !important;
         color: #333 !important;
-        font-weight: bold !important;
+        font-weight: normal !important;
     }
     
     .english-line::before {
