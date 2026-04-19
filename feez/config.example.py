@@ -19,6 +19,15 @@ MYMEMORY_API_KEY = os.environ.get('MYMEMORY_API_KEY', None)
 LIBRETRANSLATE_URL = os.environ.get('LIBRETRANSLATE_URL', 'https://libretranslate.com/translate')
 LIBRETRANSLATE_API_KEY = os.environ.get('LIBRETRANSLATE_API_KEY', None)
 
+# Local TTS (recommended: direct Piper binary + Finnish model)
+LOCAL_TTS_ENABLED = os.environ.get('LOCAL_TTS_ENABLED', 'true').lower() == 'true'
+LOCAL_TTS_PROVIDER = os.environ.get('LOCAL_TTS_PROVIDER', 'piper')
+LOCAL_TTS_URL = os.environ.get('LOCAL_TTS_URL', 'http://localhost:5500/api/tts')
+LOCAL_TTS_VOICE = os.environ.get('LOCAL_TTS_VOICE', 'fi_FI-harri-medium')
+PIPER_BINARY_PATH = os.environ.get('PIPER_BINARY_PATH', 'vendor/piper/piper/piper')
+PIPER_MODEL_PATH = os.environ.get('PIPER_MODEL_PATH', 'vendor/piper/voices/fi_FI-harri-medium.onnx')
+PIPER_CONFIG_PATH = os.environ.get('PIPER_CONFIG_PATH', 'vendor/piper/voices/fi_FI-harri-medium.onnx.json')
+
 # Google Cloud Translation API (Official - requires API key)
 # Sign up: https://cloud.google.com/translate
 # Free tier: $10/month credit (500k characters)

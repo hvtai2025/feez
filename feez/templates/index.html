@@ -14,27 +14,124 @@
         </header>
 
         <div class="controls">
-            <div class="input-group">
-                <label for="finnishText">Finnish Text (one phrase per line):</label>
-                <textarea id="finnishText" placeholder="Enter Finnish phrases, one per line..." rows="8">Hei, mitä kuuluu?
+            <div class="practice-panel source-panel">
+                <div class="input-group">
+                    <label for="contentSource">Content Source:</label>
+                    <select id="contentSource">
+                        <option value="custom" selected>Custom Phrase Drill</option>
+                        <option value="lesson">Lesson Practice (A1-A2)</option>
+                    </select>
+                </div>
+
+                <div id="lessonPanel" class="lesson-panel hidden">
+                    <div class="drill-row">
+                        <div class="input-group">
+                            <label for="lessonLevel">Lesson Level:</label>
+                            <select id="lessonLevel">
+                                <option value="all" selected>All levels</option>
+                                <option value="A1">A1</option>
+                                <option value="A2">A2</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="lessonSelect">Lesson:</label>
+                            <select id="lessonSelect"></select>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="lessonSkill">Lesson Skill:</label>
+                            <select id="lessonSkill">
+                                <option value="all" selected>All skills</option>
+                                <option value="reading">Reading</option>
+                                <option value="writing">Writing</option>
+                                <option value="speaking">Speaking</option>
+                                <option value="listening">Listening</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="lesson-actions">
+                        <button id="loadLessonBtn" class="btn-secondary" type="button">Load Lesson</button>
+                        <button id="startLessonBtn" class="btn-start hidden" type="button">▶ Start</button>
+                    </div>
+
+                    <div id="gamificationBanner" class="gamification-banner hidden"></div>
+                </div>
+            </div>
+
+            <div id="customInputPanel">
+                <div class="input-group">
+                    <label for="finnishText">Finnish Text (one phrase per line):</label>
+                    <textarea id="finnishText" placeholder="Enter Finnish phrases, one per line..." rows="8">Hei, mitä kuuluu?
 Hyvää huomenta
 Kiitos paljon
 Ole hyvä
 Nähdään myöhemmin</textarea>
-            </div>
-
-            <div class="input-group">
-                <label for="englishText">English Translation (auto-generated):</label>
-                <textarea id="englishText" placeholder="Translations will appear here..." rows="8" readonly></textarea>
-                <div class="translate-controls">
-                    <button id="translateBtn" class="btn-translate" type="button">🔄 Translate All Lines</button>
-                    <button id="cancelBtn" class="btn-cancel" type="button" style="display: none;">✖ Cancel</button>
                 </div>
-                <div id="translationStatus" class="translation-status"></div>
-                <div id="translationProgress" class="translation-progress"></div>
+
+                <div class="input-group">
+                    <label for="englishText">English Translation (auto-generated):</label>
+                    <textarea id="englishText" placeholder="Translations will appear here..." rows="8" readonly></textarea>
+                    <div class="translate-controls">
+                        <button id="translateBtn" class="btn-translate" type="button">🔄 Translate All Lines</button>
+                        <button id="cancelBtn" class="btn-cancel hidden" type="button">✖ Cancel</button>
+                    </div>
+                </div>
             </div>
 
-            <div class="options-row">
+            <div id="translationStatus" class="translation-status"></div>
+            <div id="translationProgress" class="translation-progress"></div>
+
+            <div class="practice-panel">
+                <div id="customModeGroup" class="input-group">
+                    <label for="practiceMode">Custom Drill Mode:</label>
+                    <select id="practiceMode">
+                        <option value="review" selected>Review (show both)</option>
+                        <option value="adaptive">Adaptive (auto mode per phrase)</option>
+                        <option value="recall">Recall (hide English)</option>
+                        <option value="dictation">Dictation (write Finnish from English)</option>
+                        <option value="listening">Listening Dictation (hear and type)</option>
+                    </select>
+                </div>
+
+                <div class="drill-row">
+                    <div class="input-group">
+                        <label for="grammarFilter">Grammar Focus:</label>
+                        <select id="grammarFilter">
+                            <option value="all" selected>All tags</option>
+                            <option value="question">Questions</option>
+                            <option value="polite">Polite phrases</option>
+                            <option value="partitive">Partitive patterns</option>
+                            <option value="time">Time words</option>
+                            <option value="verb-form">Verb forms</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group checkbox-group">
+                        <label for="smartDrillOnly">Smart Queue:</label>
+                        <input id="smartDrillOnly" type="checkbox" checked>
+                        <span class="checkbox-hint">Show due + weak phrases first</span>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="dailyGoal">Daily Goal (reviews):</label>
+                        <input id="dailyGoal" type="number" min="5" max="200" value="25">
+                    </div>
+                </div>
+
+                <div class="session-stats" id="sessionStats">
+                    <span>Session Score: <strong id="sessionScore">0</strong></span>
+                    <span>Completed: <strong id="sessionCompleted">0</strong></span>
+                    <span>Accuracy: <strong id="sessionAccuracy">0%</strong></span>
+                </div>
+
+                <div class="progress-summary" id="progressSummary"></div>
+                <div class="queue-summary" id="queueSummary"></div>
+            </div>
+
+            <div id="optionsRow" class="options-row">
                 <div class="input-group">
                     <label for="fontSize">Font Size:</label>
                     <select id="fontSize">
@@ -67,13 +164,27 @@ Nähdään myöhemmin</textarea>
                 </div>
             </div>
 
+            <div id="customActionsPanel">
+                <button id="addToWorksheetBtn" class="btn-secondary">Add To Worksheet</button>
+                <button id="clearWorksheetBtn" class="btn-secondary">Clear Worksheet</button>
+            </div>
             <button id="printBtn" class="btn-secondary">Print Worksheet</button>
-            <button id="addMoreBtn" class="btn-secondary">Reset</button>
         </div>
 
         <div id="worksheet" class="worksheet">
             <!-- Generated worksheet will appear here -->
         </div>
+
+        <div id="liveFeedback" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
+    </div>
+
+    <div id="lessonPlayModal" class="lesson-play-modal hidden" role="dialog" aria-modal="true" aria-label="Lesson Practice">
+        <div class="modal-header">
+            <span id="modalLessonTitle" class="modal-lesson-title"></span>
+            <button id="closeModalBtn" class="btn-modal-close" type="button" aria-label="Close practice">✕</button>
+        </div>
+        <div id="modalGamificationBanner" class="gamification-banner"></div>
+        <div id="modalWorksheet" class="worksheet modal-worksheet"></div>
     </div>
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>

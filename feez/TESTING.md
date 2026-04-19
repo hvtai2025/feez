@@ -1,17 +1,15 @@
 # Test Documentation
 
 ## Overview
-Comprehensive unit tests for the Finnish Practice Worksheet Generator Flask application.
+Unit and integration-style API tests for the LibreTranslate-only Flask application.
 
 ## Test Files
 
 ### test_app.py (unittest)
-- **26 test cases** using Python's built-in unittest framework
-- Tests API endpoints, translation functions, rate limiting, and edge cases
+- Covers endpoint behavior and core translation helper behavior
 
 ### test_app_pytest.py (pytest)
-- **9 test cases** using pytest framework
-- Demonstrates pytest fixtures and parametrized tests
+- Covers request validation, success/failure status codes, and batch behavior
 
 ## Running Tests
 
@@ -35,54 +33,27 @@ python -m pytest test_app_pytest.py -v
 python -m pytest test_app.py test_app_pytest.py -v --cov=app --cov-report=html
 ```
 
-## Test Coverage
+## Covered Areas
 
-**Current Coverage: 77%**
-
-### Covered Areas
 - ✅ API endpoint routing
-- ✅ Request validation
-- ✅ Translation service selection
-- ✅ Rate limiting logic
-- ✅ Error handling
-- ✅ Service availability checking
-
-### Not Covered (23%)
-- Some error paths in translation functions
-- Network timeout scenarios
-- Complex service failure combinations
+- ✅ Request validation and limits
+- ✅ Batch translation behavior
+- ✅ LibreTranslate helper success and malformed response handling
+- ✅ Temporary service unavailability handling
 
 ## Test Categories
 
-### API Endpoint Tests (14 tests)
+### API Endpoint Tests
 - GET / - Index page
 - POST /api/translate - Single translation
 - POST /api/translate-batch - Batch translation
-- GET /api/services - Service status
 
-### Rate Limiting Tests (4 tests)
-- Service availability
-- Rate limit marking
-- Rate limit expiration
-- Error detection
-
-### Translation Function Tests (8 tests)
-- MyMemory API
-- LibreTranslate API
-- Google Translate API
-- Lingva Translate API
-
-### Integration Tests (3 tests)
-- Service fallback
-- All services failure
-- Rate limit marking
-
-### Edge Cases (6 tests)
-- Invalid JSON
-- Special characters
-- Very long text
-- Large batches
-- Empty input
+### Edge Cases
+- Invalid payload shape
+- Non-string text
+- Very long lines
+- Too many batch lines
+- Mixed success/failure in a batch
 
 ## Viewing Coverage Report
 

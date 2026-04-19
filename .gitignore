@@ -22,3 +22,6 @@ htmlcov/
 .pytest_cache/
 *.cover
 .hypothesis/
+
+# Generated local TTS runtime/assets (downloaded by setup scripts)
+feez/vendor/
